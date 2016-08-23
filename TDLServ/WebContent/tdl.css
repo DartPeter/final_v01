@@ -1,0 +1,34 @@
+body {
+    background: linear-gradient(#C8C8C8,orange);
+}
+h1 {
+    text-align: center
+}
+table {
+    margin-left:auto; 
+    margin-right:auto;
+    border:1px solid black;
+    width: 700px;
+}
+td {
+    padding: 5px;
+}
+.header {
+    background-color: blue;
+    color: white;
+}
+.adder {
+    background-color: grey;
+}
+.record {
+    background-color: white;
+}
+.record:hover {
+    background-color: yellow;
+}
+.hideline {
+    border-right:thick;
+}
+.hideline:hover {
+    border-right:hidden;
+}
