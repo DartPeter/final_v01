@@ -1,3 +1,5 @@
+servAddr = "http://localhost:8080";
+
 function newList() {
 	var nln = prompt("Enter a name for new list");
 	if (!checkInput(nln))
@@ -76,7 +78,7 @@ function newList() {
 	xhttp.onreadystatechange = function() {
 		ntbl.setAttribute("id", xhttp.responseText);
 	}
-	var url = "http://localhost:8080/TDLServ/AddTDL?";
+	var url = servAddr + "/TDLServ/AddTDL?";
 	url += "lname=" + nln;
 	xhttp.open("GET", url, true);
 	xhttp.send();
@@ -131,7 +133,7 @@ function newRec(me) {
 	xhttp.onreadystatechange = function() {
 		newRow.setAttribute("id", xhttp.responseText);
 	}
-	var url = "http://localhost:8080/TDLServ/AddRec?";
+	var url = servAddr + "/TDLServ/AddRec?";
 	url += "rname=" + inpVal;
 	url += "&" + "pr_id=" + me.parentNode.parentNode.parentNode.parentNode.getAttribute("id");
 	xhttp.open("GET", url, true);
@@ -148,7 +150,7 @@ function renameList(me) {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 	}
-	var url = "http://localhost:8080/TDLServ/RenTDL?";
+	var url = servAddr + "/TDLServ/RenTDL?";
 	url += "lname=" + nn + "&" + "id=" + id;
 	xhttp.open("GET", url, true);
 	xhttp.send();
@@ -162,7 +164,7 @@ function removeList(me) {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 	}
-	var url = "http://localhost:8080/TDLServ/DelTDL?";
+	var url = servAddr + "/TDLServ/DelTDL?";
 	url += "id=" + id;
 	xhttp.open("GET", url, true);
 	xhttp.send();
@@ -184,7 +186,7 @@ function swapRecs(me) {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 	}
-	var url = "http://localhost:8080/TDLServ/SwpRec?";
+	var url = servAddr + "/TDLServ/SwpRec?";
 	url += "id1=" + id1;
 	url += "&id2=" + id2;
 	xhttp.open("GET", url, true);
@@ -213,7 +215,7 @@ function renameRec(me) {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 	}
-	var url = "http://localhost:8080/TDLServ/RenRec?";
+	var url = servAddr + "/TDLServ/RenRec?";
 	url += "r_id=" + r_id;
 	url += "&" + "rname=" + nr;
 	xhttp.open("GET", url, true);
@@ -228,7 +230,7 @@ function removeRec(me) {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 	}
-	var url = "http://localhost:8080/TDLServ/DelRec?";
+	var url = servAddr + "/TDLServ/DelRec?";
 	url += "r_id=" + r_id;
 	xhttp.open("GET", url, true);
 	xhttp.send();
@@ -241,7 +243,7 @@ function changeStats(me) {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 	}
-	var url = "http://localhost:8080/TDLServ/CscRec?";
+	var url = servAddr + "/TDLServ/CscRec?";
 	url += "r_id=" + r_id;
 	url += "&" + "st=" + st;
 	xhttp.open("GET", url, true);
@@ -346,7 +348,7 @@ function readProjects() {
 			body1.insertBefore(ntbl, btn);
 		}
 	}
-	var url = "http://localhost:8080/TDLServ/LoadTDLs";
+	var url = servAddr + "/TDLServ/LoadTDLs";
 	xhttp.open("GET", url, true);
 	xhttp.send();
 }
@@ -409,7 +411,7 @@ function readRecords() {
 			insTbl.firstChild.appendChild(newRow);
 		}
 	}
-	var url = "http://localhost:8080/TDLServ/LoadRecs";
+	var url = servAddr + "/TDLServ/LoadRecs";
 	xhttp.open("GET", url, true);
 	xhttp.send();
 }
