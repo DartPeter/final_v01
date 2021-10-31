@@ -1,0 +1,54 @@
+@charset "UTF-8";
+div {
+	text-align: center;
+}
+caption {
+	caption-side: bottom;
+	text-align: left;
+	font-size: 75%;
+}
+table {
+	border-collapse: collapse;
+	padding: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+th {
+	background-color: #54585d;
+	color: #ffffff;
+	border: 1px solid black;
+	padding: 10px;
+}
+td {
+	border: 1px solid black;
+	text-align: center;
+	padding: 10px;
+}
+.validity {
+	border-width: 0; 
+	background-color: white;
+	color: red
+}
+tr:nth-child(odd) {
+  background-color: #eeeeee;
+}
+a:hover {
+	color: white;
+	background-color: red;
+}
+input[type=submit], button, ::-webkit-file-upload-button {
+	background-color: #54585d;
+	color: white;
+	font-size: 125%;
+	padding: 5px 20px;
+	border-radius: 15px;
+	border-width: 0;
+}
+input[type=submit]:hover {
+	border-color: red;
+	border-width: 1px;
+}
+button:hover {
+	border-color: red;
+	border-width: 1px;
+}
