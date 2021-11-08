@@ -53,6 +53,9 @@ public class MainServlet extends HttpServlet {
     }
 	
     public void testProcess(HttpServletRequest req, HttpServletResponse resp) {
+    	
+    	requestAnalyzer(req, resp);
+    	
     	Logger.getLogger(MainServlet.class.getName()).log(Level.INFO, "Entering Main Servlet");
         String actionKey = null;
         try {
