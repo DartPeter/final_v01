@@ -1,5 +1,5 @@
 <%@page import="jdbc.DBManager"%>
-<%@page import="entity.Faculty"%>
+<%@page import="com.my.pet.spring.domain.Faculty"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -50,7 +50,7 @@ function sendEmails() {
 }
 </script>
 <br><br>
-<a href="view_faculties.jsp"><fmt:message key="return"/></a>
+<a href="view_faculties"><fmt:message key="return"/></a>
 </div>
 </body>
 </html>

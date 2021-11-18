@@ -27,8 +27,13 @@ public class MyController {
 		return new ModelAndView("register");
 	}
 	
-	@PostMapping(value = "/login1")
-	public ModelAndView login1() {
+//	@PostMapping(value = "/login1")
+//	public ModelAndView login1() {
+//		return new ModelAndView("home_admin");
+//	}
+	
+	@GetMapping(value = "/home_admin")
+	public ModelAndView homeAdmin() {
 		return new ModelAndView("home_admin");
 	}
 	
@@ -42,10 +47,29 @@ public class MyController {
 		return new ModelAndView("manage_users");
 	}
 	
-	//add_edit_faculty
 	@GetMapping(value = "/add_edit_faculty")
 	public ModelAndView addEditFaculty() {
 		return new ModelAndView("add_edit_faculty");
+	}
+	
+	@GetMapping(value = "/generate_report")
+	public ModelAndView generateReport() {
+		return new ModelAndView("generate_report");
+	}
+	
+	@GetMapping(value = "/home_user")
+	public ModelAndView homeUser() {
+		return new ModelAndView("home_user");
+	}
+	
+	@GetMapping(value = "/view_marks")
+	public ModelAndView viewMarks() {
+		return new ModelAndView("view_marks");
+	}
+	
+	@GetMapping(value = "/manage_appointments")
+	public ModelAndView manageAppointments() {
+		return new ModelAndView("manage_appointments");
 	}
 	
 	/* EXPERIMENTAL

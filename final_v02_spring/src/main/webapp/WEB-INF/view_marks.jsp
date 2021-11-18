@@ -1,6 +1,6 @@
 <%@page import="jdbc.DBManager"%>
-<%@page import="entity.SysUser"%>
-<%@page import="entity.Mark"%>
+<%@page import="com.my.pet.spring.domain.SysUser"%>
+<%@page import="com.my.pet.spring.domain.Mark"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
@@ -45,7 +45,7 @@
 	<input type="submit" value="<fmt:message key='view.marks.update'/>">
 	<input type="hidden" name="key_vm" value="${System.currentTimeMillis()}" />
 	</form>
-	<br/><a href="home_user.jsp"><fmt:message key="return"/></a>
+	<br/><a href="home_user"><fmt:message key="return"/></a>
 </div>
 </body>
 </html>

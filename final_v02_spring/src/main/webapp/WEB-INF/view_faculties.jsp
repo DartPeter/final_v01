@@ -56,11 +56,11 @@
     request.setAttribute("sortType", sortType);
     request.setAttribute("spage", spage);
     %>
-    <a href="view_faculties.jsp?sortType=name&spage=${spage}"><fmt:message key="sort.faculties.by.name"/></a><br>
-    <a href="view_faculties.jsp?sortType=budget&spage=${spage}"><fmt:message key="sort.faculties.by.budget"/></a><br>
-    <a href="view_faculties.jsp?sortType=total&spage=${spage}"><fmt:message key="sort.faculties.by.total"/></a><br>
+    <a href="view_faculties?sortType=name&spage=${spage}"><fmt:message key="sort.faculties.by.name"/></a><br>
+    <a href="view_faculties?sortType=budget&spage=${spage}"><fmt:message key="sort.faculties.by.budget"/></a><br>
+    <a href="view_faculties?sortType=total&spage=${spage}"><fmt:message key="sort.faculties.by.total"/></a><br>
     <c:forEach var="p" begin="${first}" end="${last}">
-    	<a href="view_faculties.jsp?sortType=${sortType}&spage=${p}">${p}</a>
+    	<a href="view_faculties?sortType=${sortType}&spage=${p}">${p}</a>
     </c:forEach>
     <table>
     <caption> <fmt:message key="view.faculties.list"/> </caption>

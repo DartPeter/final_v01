@@ -16,7 +16,7 @@
         <br><br>
         <a href="manage_users"><fmt:message key="home.admin.manage.users"/></a>
         <br><br>
-        <a href="http://localhost:8080/final_v01/logout"><fmt:message key="logout"/></a>
+        <a href="logout"><fmt:message key="logout"/></a>
     </div>
 </body>
 </html>

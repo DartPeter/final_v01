@@ -14,11 +14,11 @@
         <h1><fmt:message key="home.user.title"/></h1>
         <strong>${user.fullName} (${user.email})</strong>
         <br><br>
-        <a href="manage_appointments.jsp"><fmt:message key="home.user.manage.appointments"/></a>
+        <a href="manage_appointments"><fmt:message key="home.user.manage.appointments"/></a>
         <br><br>
-        <a href="view_marks.jsp"><fmt:message key="home.user.manage.marks"/></a>
+        <a href="view_marks"><fmt:message key="home.user.manage.marks"/></a>
         <br><br>
-        <a href="http://localhost:8080/final_v01/logout"><fmt:message key="logout"/></a>
+        <a href="logout"><fmt:message key="logout"/></a>
         <br><br>
         <form action="loadFile" method="post" enctype="multipart/form-data">
 			<input type="file" name="imageFile" >

@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.my.pet.spring.domain.Faculty;
 import com.my.pet.spring.exception.DBException;
@@ -25,7 +26,8 @@ public class ProcessFacultyController {
 		return null;
 	}
 	
-	@PostMapping(value = "/processFaculty")
+//	@PostMapping(value = "/processFaculty")
+	@RequestMapping(value = "/processFaculty")
 	public ModelAndView processFaculty(@ModelAttribute ("faculty") Faculty faculty, HttpServletRequest request) {
 		Logger.getLogger(ProcessFacultyController.class.getName()).log(Level.INFO, "Trying to process faculty");
         try {

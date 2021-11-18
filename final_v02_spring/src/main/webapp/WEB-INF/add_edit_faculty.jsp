@@ -41,7 +41,7 @@ ${faculty.id}
 </table>
 <input type="hidden" name="key_aef" value="${System.currentTimeMillis()}" />
 </form>
-<a href="view_faculties.jsp"><fmt:message key="add.edit.faculty.list"/></a><br/>
+<a href="view_faculties"><fmt:message key="add.edit.faculty.list"/></a><br/>
 </div>
 </body>  
 </html>  
