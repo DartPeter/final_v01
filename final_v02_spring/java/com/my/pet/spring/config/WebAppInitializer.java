@@ -3,6 +3,7 @@ package com.my.pet.spring.config;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.my.pet.spring.homework.hw1.HelloRouter;
+import com.my.pet.spring.security.WebSecurityConfig;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -14,7 +15,8 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
   @Override
   protected Class<?>[] getRootConfigClasses() {
     return new Class[]{WebConfig.class,
-    		HelloRouter.class
+    		HelloRouter.class,
+    		WebSecurityConfig.class
     		};
   }
 

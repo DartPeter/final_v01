@@ -20,13 +20,6 @@ public class ProcessFacultyController {
 	
 	private static final String PRG_KEY = "facultyOperOK";
 	
-	@PostMapping(value = "/processFaculty_TEST")
-	public ModelAndView processFaculty_TEST(@ModelAttribute ("faculty") Faculty faculty) {
-		System.out.println(faculty + " " + "");
-		return null;
-	}
-	
-//	@PostMapping(value = "/processFaculty")
 	@RequestMapping(value = "/processFaculty")
 	public ModelAndView processFaculty(@ModelAttribute ("faculty") Faculty faculty, HttpServletRequest request) {
 		Logger.getLogger(ProcessFacultyController.class.getName()).log(Level.INFO, "Trying to process faculty");

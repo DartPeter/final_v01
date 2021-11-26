@@ -1,5 +1,5 @@
 <%@page import="jdbc.DBManager"%>
-<%@page import="entity.SysUser"%>
+<%@page import="com.my.pet.spring.domain.SysUser"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
@@ -36,7 +36,7 @@
     request.setAttribute("last", last);
 	%>
 	<c:forEach var="p" begin="${first}" end="${last}">
-    	<a href="manage_users.jsp?page=${p}">${p}</a>
+    	<a href="manage_users?page=${p}">${p}</a>
     </c:forEach>
 	<table>
 		<caption><fmt:message key="manage.users.list"/></caption>
@@ -62,7 +62,7 @@
 		</c:forEach>
 	</table>
 	<br />
-	<a href="home_admin.jsp"><fmt:message key="return"/></a>
+	<a href="home_admin"><fmt:message key="return"/></a>
 	</div>
 </body>
 </html>

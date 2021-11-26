@@ -28,12 +28,12 @@
 
 	<div style="text-align: center">
 		<h1><fmt:message key="login.page"/></h1>
-		<form action="login1" method="post">
-			<label for="login"><fmt:message key="login.login"/>:</label> 
-			<input name="login" size="75" required /> 
+		<form action="loginProc" method="post">
+			<label for="username"><fmt:message key="login.login"/>:</label> 
+			<input name="username" id="username" size="75" required /> 
 			<br> <br> 
 			<label for="password"><fmt:message key="login.password"/>:</label>
-			<input type="password" name="password" size="75" required />
+			<input type="password" name="password" id="password" size="75" required />
 			<br> <br> 
 			<c:if test="${message!=null&&!message.isBlank()}">
 			<p style="color: red;"><fmt:message key="${message}"/></p>
