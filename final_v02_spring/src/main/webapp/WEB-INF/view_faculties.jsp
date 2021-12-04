@@ -1,7 +1,3 @@
-<%@page import="jdbc.DBManager"%>
-<%@page import="com.my.pet.spring.domain.Faculty"%>
-<%@page import="java.util.List"%>
-<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -17,44 +13,7 @@
 	<div>
     <h1><fmt:message key="view.faculties.list"/></h1>
     <%
-    final int PAGE_SIZE = 10;
-    String spage = request.getParameter("spage");
-    int currentPage = 1;
-    try {
-    	currentPage = Integer.parseInt(spage);
-    } catch(NumberFormatException nfe) {
-    	// do nothing
-    }
     
-    List<Faculty> list = DBManager.getAllFaculties();
-    
-	// sort staff
-    String sortType = request.getParameter("sortType");
-	if(sortType == null) sortType = "";
-    switch (sortType) {
-	    case "name" :
-	    	list.sort((f1, f2) -> f1.getName().compareTo(f2.getName()));
-	    	break;
-	    case "budget" :
-	    	list.sort((f1, f2) -> Integer.compare(f1.getBudgetPlaces(), f2.getBudgetPlaces()));
-	    	break;
-	    case "total" :
-	    	list.sort((f1, f2) -> Integer.compare(f1.getTotalPlaces(), f2.getTotalPlaces()));
-	    	break;
-	   	default :
-	   		break;	
-    }
-    
-    List<Faculty> list2 = list.subList((currentPage - 1) * PAGE_SIZE, Math.min(currentPage * PAGE_SIZE, list.size()));
-    request.setAttribute("list", list2);
-    int size = list.size();
-    int pagesTotal = size / PAGE_SIZE + (size % PAGE_SIZE == 0 ? 0 : 1);
-    int first = 1;
-    int last = pagesTotal;
-    request.setAttribute("first", first);
-    request.setAttribute("last", last);
-    request.setAttribute("sortType", sortType);
-    request.setAttribute("spage", spage);
     %>
     <a href="view_faculties?sortType=name&spage=${spage}"><fmt:message key="sort.faculties.by.name"/></a><br>
     <a href="view_faculties?sortType=budget&spage=${spage}"><fmt:message key="sort.faculties.by.budget"/></a><br>

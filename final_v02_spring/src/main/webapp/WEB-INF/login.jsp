@@ -28,7 +28,7 @@
 
 	<div style="text-align: center">
 		<h1><fmt:message key="login.page"/></h1>
-		<form action="loginProc" method="post">
+		<form action="login" method="post">
 			<label for="username"><fmt:message key="login.login"/>:</label> 
 			<input name="username" id="username" size="75" required /> 
 			<br> <br> 

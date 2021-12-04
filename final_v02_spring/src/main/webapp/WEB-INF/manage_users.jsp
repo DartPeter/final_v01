@@ -1,6 +1,3 @@
-<%@page import="jdbc.DBManager"%>
-<%@page import="com.my.pet.spring.domain.SysUser"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -15,26 +12,6 @@
 <body>
 	<div>
 	<h1><fmt:message key="manage.users.list"/></h1>
-	<%
-	final int PAGE_SIZE = 10;
-    String spage = request.getParameter("page");
-    int currentPage = 1;
-    try {
-    	currentPage = Integer.parseInt(spage);
-    } catch(NumberFormatException nfe) {
-    	// do nothing
-    }
-    request.setAttribute("page", currentPage);
-    List<SysUser> list = DBManager.getAllSysUsers();
-    List<SysUser> list2 = list.subList((currentPage - 1) * PAGE_SIZE, Math.min(currentPage * PAGE_SIZE, list.size()));
-    request.setAttribute("list", list2);
-    int size = list.size();
-    int pagesTotal = size / PAGE_SIZE + (size % PAGE_SIZE == 0 ? 0 : 1);
-    int first = 1;
-    int last = pagesTotal;
-    request.setAttribute("first", first);
-    request.setAttribute("last", last);
-	%>
 	<c:forEach var="p" begin="${first}" end="${last}">
     	<a href="manage_users?page=${p}">${p}</a>
     </c:forEach>

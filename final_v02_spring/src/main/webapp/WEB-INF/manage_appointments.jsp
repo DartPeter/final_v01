@@ -1,9 +1,3 @@
-<%@page import="jdbc.DBManager"%>
-<%@page import="com.my.pet.spring.domain.Appointment"%>
-<%@page import="com.my.pet.spring.domain.Faculty"%>
-<%@page import="com.my.pet.spring.domain.SysUser"%>
-<%@page import="java.util.List"%>
-<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -19,29 +13,8 @@
 <body>
 	<div>
     <h1><fmt:message key="manage.appointments.list"/></h1>
-    <%
-    final int PAGE_SIZE = 10;
-    String spage = request.getParameter("page");
-    int currentPage = 1;
-    try {
-    	currentPage = Integer.parseInt(spage);
-    } catch(NumberFormatException nfe) {
-    	// do nothing
-    }
-    request.setAttribute("page", currentPage);
-	request.getSession().setAttribute("lapp", Integer.toString(currentPage));
-    List<Appointment> list = DBManager.getUserAppointments((SysUser)(session.getAttribute("user")));
-    List<Appointment> list2 = list.subList((currentPage - 1) * PAGE_SIZE, Math.min(currentPage * PAGE_SIZE, list.size()));
-    request.setAttribute("list", list2);
-    int size = list.size();
-    int pagesTotal = size / PAGE_SIZE + (size % PAGE_SIZE == 0 ? 0 : 1);
-    int first = 1;
-    int last = pagesTotal;
-    request.setAttribute("first", first);
-    request.setAttribute("last", last);
-    %>
     <c:forEach var="p" begin="${first}" end="${last}">
-    	<a href="manage_appointments.jsp?page=${p}">${p}</a>
+    	<a href="manage_appointments?page=${p}">${p}</a>
     </c:forEach>
     <table>
     <caption> <fmt:message key="manage.appointments.list"/> </caption>
@@ -55,7 +28,7 @@
     <tr><custom2:appointment appointment="${u}"/></tr>
     </c:forEach>
     </table>
-    <br/><a href="home_user.jsp"><fmt:message key="return"/></a>
+    <br/><a href="home_user"><fmt:message key="return"/></a>
     </div>
 </body>
 </html>

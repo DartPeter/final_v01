@@ -36,8 +36,9 @@ public class AppointmentTag extends SimpleTagSupport {
     	
     	String page = (String) ((PageContext) getJspContext()).getSession().getAttribute("lapp");
     	
-		ResourceBundle rb = 
-				ResourceBundle.getBundle(baseName, new Locale(curLocale));
+    	// Temporary workaround until i learn how to fix n19 here
+    	ResourceBundle rb = ResourceBundle.getBundle("resources", new Locale("en"));
+//		ResourceBundle rb = ResourceBundle.getBundle(baseName, new Locale(curLocale));
 		String appoint = rb.getString("manage.appointments.action.appoint");
 		String disappoint = rb.getString("manage.appointments.action.disappoint");
 		String syes = rb.getString("manage.appointments.yes");

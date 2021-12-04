@@ -30,13 +30,21 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("invalid login details");
         }
         
+        if (user == null || !authentication.getCredentials().equals(user.getPassword())) {
+        	return null;
+        }
+        
         return createSuccessfulAuthentication(authentication, user);
 	}
 	
 	private Authentication createSuccessfulAuthentication(final Authentication authentication, final UserDetails user) {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), authentication.getCredentials(), user.getAuthorities());
-        token.setDetails(authentication.getDetails());
-        return token;
+		try {
+	        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), authentication.getCredentials(), user.getAuthorities());
+	        token.setDetails(authentication.getDetails());
+	        return token;
+		} catch (Exception e) {
+			return null;
+		}
     }
 
 	@Override

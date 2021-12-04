@@ -14,9 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	SysUserDetailsServiceImpl userService;
-	
-	@Autowired
     private CustomAuthenticationProvider authProvider;
 	
 	@Bean 
@@ -37,12 +34,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/home_admin", "/view_faculties", "/manage_users", "/add_edit_faculty", "/generate_report",
-				"/processFaculty", "/sendEmails").hasAnyRole("ADMIN")
+		      "/processFaculty", "/sendEmails").hasAnyRole("ADMIN")
 		.antMatchers("/home_user", "/view_marks", "/manage_appointments", "/updateMark").hasAnyRole("USER")
-		.and().formLogin().loginPage("/login")
+		.and().formLogin()
+		      .loginPage("/login")
 		.defaultSuccessUrl("/loginProc")
-		.failureForwardUrl("/loginProc")
-		.permitAll()
 		.and().logout();
     }
 	

@@ -1,7 +1,3 @@
-<%@page import="jdbc.DBManager"%>
-<%@page import="com.my.pet.spring.domain.SysUser"%>
-<%@page import="com.my.pet.spring.domain.Mark"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -17,12 +13,6 @@
 <body>
 <div>
 	<h1><fmt:message key="view.marks.title"/></h1>
-	<%
-	    SysUser su = new SysUser();
-	    su.setId(((SysUser)request.getSession().getAttribute("user")).getId());
-	    List<Mark> list = DBManager.getUserMarks(su);
-	    request.setAttribute("list", list);
-	%>
 	<form action="updateMark" method="post">
 	<table>
 	<caption> <fmt:message key="view.marks.title"/> </caption>
