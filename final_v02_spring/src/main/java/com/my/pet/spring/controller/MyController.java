@@ -133,11 +133,12 @@ public class MyController {
 	
 	@GetMapping(value = "/view_marks")
 	public ModelAndView viewMarks(HttpServletRequest request) {
-		SysUser su = new SysUser();
-	    su.setId(((SysUser)request.getSession().getAttribute("user")).getId());
+		SysUser su = (SysUser)request.getSession().getAttribute("user");
 	    List<Mark> list = new ArrayList<>();
 		try {
-			list = DBManager.getUserMarks(su);
+			if(su != null) {
+				list = DBManager.getUserMarks(su);
+			}
 		} catch (DBException e) {
 			LoggerFactory.getLogger(MyController.class).error("can't retrive marks");
 		}
@@ -159,7 +160,10 @@ public class MyController {
 		request.getSession().setAttribute("lapp", Integer.toString(currentPage));
 	    List<Appointment> list = new ArrayList<>();
 		try {
-			list = DBManager.getUserAppointments((SysUser)(request.getSession().getAttribute("user")));
+			SysUser sysUser = (SysUser)(request.getSession().getAttribute("user"));
+			if (sysUser != null) {
+				list = DBManager.getUserAppointments(sysUser);
+			}
 		} catch (DBException e) {
 			// do nothing
 		}

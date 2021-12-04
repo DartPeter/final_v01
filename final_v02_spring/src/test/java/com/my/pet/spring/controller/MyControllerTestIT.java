@@ -16,11 +16,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import com.my.pet.spring.config.WebConfig;
 import com.my.pet.spring.test.config.TestBeanConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestBeanConfig.class)
+@ContextConfiguration(classes =TestBeanConfig.class)
 class MyControllerTestIT {
 	
 	@Autowired
