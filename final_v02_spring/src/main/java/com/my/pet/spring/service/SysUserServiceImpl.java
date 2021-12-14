@@ -18,7 +18,6 @@ import com.my.pet.spring.domain.Mark;
 import com.my.pet.spring.domain.Subject;
 import com.my.pet.spring.domain.SysUser;
 import com.my.pet.spring.dto.AppointmentDto;
-import com.my.pet.spring.dto.FacultyDto;
 import com.my.pet.spring.dto.MarkDto;
 import com.my.pet.spring.dto.SysUserDto;
 import com.my.pet.spring.exception.DBException;
@@ -189,14 +188,9 @@ public class SysUserServiceImpl implements SysUserService {
 				persistentMark.setSysUser(null);
 			}
 		}
-		//TODO workaround
-//		int subjId = 1;
-//		List<Subject> subjects = subjectDAO.getAllSubjects();
 		for (Mark markToAdd : marksToAdd) {
 			persistentEntity.getMarks().add(markToAdd);
 			markToAdd.setSysUser(persistentEntity);
-//			markToAdd.setValue(0);
-//			markToAdd.setSubject(subjects.get(subjId++));
 		}
 		
 	}

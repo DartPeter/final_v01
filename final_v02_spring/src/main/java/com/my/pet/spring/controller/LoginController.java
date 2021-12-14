@@ -9,12 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.my.pet.spring.domain.SysUser;
 import com.my.pet.spring.dto.SysUserDto;
 import com.my.pet.spring.exception.DBException;
 import com.my.pet.spring.service.SysUserService;
-
-import jdbc.DBManager;
 
 @Controller
 public class LoginController {
@@ -29,8 +26,6 @@ public class LoginController {
 	public ModelAndView login(HttpServletRequest request) throws DBException {
 		
 		SysUserDto su = 
-//				DBManager.getSysUserByLogin((String)SecurityContextHolder
-//				.getContext().getAuthentication().getPrincipal());
 		sysUserService.getSysUserByLogin((String)SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal());
 		

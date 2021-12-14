@@ -17,18 +17,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import com.my.pet.spring.config.WebConfig;
 import com.my.pet.spring.test.config.TestBeanConfig;
 import com.my.pet.spring.test.config.TestHibernateConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes =
-//TestBeanConfig.class
-{
-TestBeanConfig.class
-, TestHibernateConfiguration.class}
-)
+@ContextConfiguration(classes = {TestBeanConfig.class, TestHibernateConfiguration.class})
 @WebAppConfiguration
 class MyControllerTestIT {
 	

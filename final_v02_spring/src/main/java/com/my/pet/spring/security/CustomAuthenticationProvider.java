@@ -15,7 +15,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	
 	@Autowired
 	SysUserDetailsServiceImpl sysUserDetailsServiceImpl;
-//	= new SysUserDetailsServiceImpl();
 		
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {

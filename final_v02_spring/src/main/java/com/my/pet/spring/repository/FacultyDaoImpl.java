@@ -39,12 +39,6 @@ public class FacultyDaoImpl implements FacultyDAO {
 		return faculty;
 	}
 
-//	@Override
-//	public void updateFaculty(Faculty faculty) throws DBException {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
 	@Override
 	public void deleteFaculty(Integer id) throws DBException {
 		Faculty faculty = getFacultyById(id);

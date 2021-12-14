@@ -1,6 +1,5 @@
 package com.my.pet.spring.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,10 +18,7 @@ public class Mark {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-//    private int userId;
-//    private int subjId;
     private Integer value;
-//    private String subjName;
     @ManyToOne
 	@JoinColumn(name = "user_id")
 	private SysUser sysUser;
@@ -33,14 +29,6 @@ public class Mark {
     public Mark() {
         // empty
     }
-    
-//    public Mark(int id, int userId, int subjId, int value, String subjName) {
-//        this.id = id;
-//        this.userId = userId;
-//        this.subjId = subjId;
-//        this.value = value;
-//        this.subjName = subjName;
-//    }
 
     public Integer getId() {
         return id;
@@ -49,22 +37,6 @@ public class Mark {
     public void setId(Integer id) {
         this.id = id;
     }
-
-//    public int getUserId() {
-//        return userId;
-//    }
-//
-//    public void setUserId(int userId) {
-//        this.userId = userId;
-//    }
-//
-//    public int getSubjId() {
-//        return subjId;
-//    }
-//
-//    public void setSubjId(int subjId) {
-//        this.subjId = subjId;
-//    }
 
     public Integer getValue() {
         return value;
@@ -89,13 +61,5 @@ public class Mark {
 	public void setSubject(Subject subject) {
 		this.subject = subject;
 	}
-
-//    public String getSubjName() {
-//        return subjName;
-//    }
-//
-//    public void setSubjName(String subjName) {
-//        this.subjName = subjName;
-//    }
 
 }

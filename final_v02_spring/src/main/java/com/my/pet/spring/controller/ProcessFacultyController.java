@@ -11,12 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import com.my.pet.spring.domain.Faculty;
 import com.my.pet.spring.dto.FacultyDto;
 import com.my.pet.spring.exception.DBException;
 import com.my.pet.spring.service.FacultyService;
-
-import jdbc.DBManager;
 
 @Controller
 public class ProcessFacultyController {
@@ -77,18 +74,15 @@ public class ProcessFacultyController {
         if (totalPlaces < budgetPlaces) {
         	errors = "messages.total.must.be.greater";
         }
-        //Faculty faculty = null;
         String mode = request.getParameter("mode");
         if (errors.isEmpty()) {
             faculty = new FacultyDto(id, name, budgetPlaces, totalPlaces);
             switch (mode) {
             case "new":
             	try {
-//            		DBManager.insertFaculty(faculty);
             		faculty.setId(null);
             		faculty = facultyService.insertFaculty(faculty);
             		logger.info("Faculty was successfully inserted.");
-//            		throw new DBException("", null);
             	} catch (DBException ex) {
             		errors = "messages.aef.cant.insert";
             		logger.error(ex.getMessage());
@@ -99,12 +93,8 @@ public class ProcessFacultyController {
                 break;
             case "edit":
             	try {
-            		
-//            		DBManager.updateFaculty(faculty);
             		faculty = facultyService.updateFaculty(faculty);
-            		
             		logger.info("Faculty was successfully updated.");
-//            		throw new DBException("", null);
             	} catch (DBException ex) {
             		errors = "messages.aef.cant.update";
             		logger.error(ex.getMessage());
@@ -112,7 +102,6 @@ public class ProcessFacultyController {
                 break;
             case "del":
             	try {
-//            		DBManager.removeFaculty(faculty);
             		facultyService.deleteFaculty(faculty.getId());
             		logger.info("Faculty was successfully removed.");
             		throw new DBException("", null);
@@ -136,9 +125,6 @@ public class ProcessFacultyController {
         
         request.setAttribute("errors", errors);
         request.setAttribute("faculty", faculty);
-        
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("del".equals(mode) ? "view_faculties.jsp" : "add_edit_faculty.jsp");
-//        dispatcher.forward(request, response);
         
         return new ModelAndView("del".equals(mode) ? "view_faculties" : "add_edit_faculty");
 	}

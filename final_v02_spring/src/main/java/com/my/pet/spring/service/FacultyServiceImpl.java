@@ -49,7 +49,6 @@ public class FacultyServiceImpl implements FacultyService {
 
 	@Override
 	@Transactional
-//	public void removeFaculty(Faculty faculty) throws DBException {
 	public void deleteFaculty(Integer id) throws DBException {
 		facultyDAO.deleteFaculty(id);
 	}

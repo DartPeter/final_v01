@@ -13,8 +13,7 @@ Faculty getFacultyByName(String name) throws DBException;
 	FacultyDto insertFaculty(FacultyDto dto) throws DBException;
     
 	FacultyDto updateFaculty(FacultyDto faculty) throws DBException;
-    
-//    void removeFaculty(Faculty faculty) throws DBException;
+
     void deleteFaculty(Integer id) throws DBException;
     
     List<FacultyDto> getAllFaculties() throws DBException;

@@ -23,16 +23,12 @@ public class SysUserDAOImpl implements SysUserDAO {
 	@Override
 	public SysUser getSysUserByLogin(String name) throws DBException {
 		Session session = sessionFactory.getCurrentSession();
-//		Object singleResult =
-		List list = 
-				session.getNamedQuery("userByLogin").setParameter("login1", name).getResultList();
-//		.getSingleResult();
+		List list = session.getNamedQuery("userByLogin").setParameter("login1", name).getResultList();
 		if (!list.isEmpty()) {
 			return (SysUser) list.get(0);
 		} else {
 			return new SysUser();
 		}
-//		return (SysUser) singleResult;
 	}
 	
 	@Override
@@ -49,18 +45,6 @@ public class SysUserDAOImpl implements SysUserDAO {
 		sessionFactory.getCurrentSession().save(sysUser);
 	}
 
-//	@Override
-//	public void updateSysUser(SysUser sysUser) throws DBException {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
-//	@Override
-//	public void removeSysUser(SysUser sysUser) throws DBException {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
 	@Override
 	public void setBlockStat(SysUser sysUser, boolean flag) throws DBException {
 		// TODO Auto-generated method stub
@@ -70,7 +54,6 @@ public class SysUserDAOImpl implements SysUserDAO {
 	@Override
 	public void setCertificate(SysUser sysUser) throws DBException {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.my.pet.spring.service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +16,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.my.pet.spring.domain.Faculty;
-import com.my.pet.spring.domain.Mark;
 import com.my.pet.spring.domain.Subject;
 import com.my.pet.spring.dto.AppointmentDto;
-import com.my.pet.spring.dto.FacultyDto;
 import com.my.pet.spring.dto.MarkDto;
 import com.my.pet.spring.dto.SysUserDto;
 import com.my.pet.spring.exception.DBException;
@@ -134,14 +131,6 @@ public class SysUserUpdatesTest {
 	
 	private Integer getSubjectId(int subjectIndex) {
 		return subjects.get(SUBJECT_NAMES[subjectIndex]).getId();
-	}
-	
-	@Test
-	void testTest() throws DBException {
-		SysUserDto sysUserDto = createSysUserDto("su1");
-		SysUserDto createdSysUser = sysUserService.insertSysUser(sysUserDto, null);
-		List<AppointmentDto> result = sysUserService.getUserAppointmentStatus(createdSysUser);
-		int i = 1 + 4;
 	}
 	
 	@Test

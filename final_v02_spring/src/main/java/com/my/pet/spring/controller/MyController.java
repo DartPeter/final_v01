@@ -13,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.my.pet.spring.domain.Mark;
-import com.my.pet.spring.domain.SysUser;
 import com.my.pet.spring.dto.AppointmentDto;
 import com.my.pet.spring.dto.FacultyDto;
 import com.my.pet.spring.dto.MarkDto;
@@ -22,8 +20,6 @@ import com.my.pet.spring.dto.SysUserDto;
 import com.my.pet.spring.exception.DBException;
 import com.my.pet.spring.service.FacultyService;
 import com.my.pet.spring.service.SysUserService;
-
-import jdbc.DBManager;
 
 @Controller
 public class MyController {
@@ -67,7 +63,6 @@ public class MyController {
 	    }
 	    List<FacultyDto> list = new ArrayList<>();
 		try {
-//			list = DBManager.getAllFaculties();
 			list = facultyService.getAllFaculties();
 		} catch (DBException e) {
 			// do nothing
@@ -116,7 +111,6 @@ public class MyController {
 	    request.setAttribute("page", currentPage);
 	    List<SysUserDto> list = new ArrayList<>();
 		try {
-//			list = DBManager.getAllSysUsers();
 			list = sysUserService.getAllSysUsers();
 		} catch (DBException e) {
 			// do nothing
@@ -153,7 +147,6 @@ public class MyController {
 	    List<MarkDto> list = new ArrayList<>();
 		try {
 			if(su != null) {
-//				list = DBManager.getUserMarks(su);
 				list = sysUserService.getUserMarksStatus(su);
 				//TODO workaround for new user first time
 				if(su.getMarks().isEmpty()) {
@@ -189,7 +182,6 @@ public class MyController {
 		try {
 			SysUserDto sysUser = (SysUserDto)(request.getSession().getAttribute("user"));
 			if (sysUser != null) {
-//				list = DBManager.getUserAppointments(sysUser);
 				list = sysUserService.getUserAppointmentStatus(sysUser);
 			}
 		} catch (DBException e) {
@@ -215,40 +207,26 @@ public class MyController {
             int fid = Integer.parseInt(request.getParameter("fid"));
             FacultyDto f = new FacultyDto();
             f.setId(fid);
-//            try {
-//            	DBManager.insertUserAppointment(su, f);
-            	AppointmentDto a = new AppointmentDto();
-            	a.setFacultyId(f.getId());
-            	a.setFacultyName(f.getName());
-            	su.getAppointments().add(a);
-//            } catch (DBException ex) {
-//            	logger.error("Can't update appointment", ex);
-//            }
+        	AppointmentDto a = new AppointmentDto();
+        	a.setFacultyId(f.getId());
+        	a.setFacultyName(f.getName());
+        	su.getAppointments().add(a);
         } else {
             int aid = Integer.parseInt(request.getParameter("aid"));
-//            AppointmentDto a = new AppointmentDto();
-//            a.setId(aid);
-//            try {
-//            	DBManager.removeAppointment(a);
-            	Iterator<AppointmentDto> iterator = su.getAppointments().iterator();
-            	while(iterator.hasNext()) {
-            		AppointmentDto dto = iterator.next();
-            		if(dto.getId().equals(aid)) {
-            			iterator.remove();
-            		}
-            	}
-//            } catch (DBException ex) {
-//            	logger.error("Can't update appointment", ex);
-//            }
+        	Iterator<AppointmentDto> iterator = su.getAppointments().iterator();
+        	while(iterator.hasNext()) {
+        		AppointmentDto dto = iterator.next();
+        		if(dto.getId().equals(aid)) {
+        			iterator.remove();
+        		}
+        	}
         }
     	try {
 			su = sysUserService.update(su);
-			//I don't know this not enough for appointments update so workaround
 			su = sysUserService.getSysUserByLogin(su.getLogin());
 			
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
     	request.getSession().setAttribute("user", su);
         

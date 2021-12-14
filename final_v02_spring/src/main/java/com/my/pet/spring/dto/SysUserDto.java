@@ -3,10 +3,6 @@ package com.my.pet.spring.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-
-import com.my.pet.spring.domain.Appointment;
-
 public class SysUserDto {
 
 	private Integer id;
@@ -31,16 +27,6 @@ public class SysUserDto {
         this.pass = pass;
         this.email = email;
     }
-
-//    public SysUserDto(int id, String fullName, String userType, String login, String pass, String email) {
-//        this(fullName, userType, login, pass, email);
-//        this.id = id;
-//    }
-//    
-//    public SysUserDto(int id, String fullName, String userType, String login, String pass, String email, boolean isBlocked) {
-//        this(id, fullName, userType, login, pass, email);
-//        this.isBlocked = isBlocked;
-//    }
 
     public Integer getId() {
         return id;

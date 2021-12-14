@@ -13,6 +13,7 @@ import com.my.pet.spring.exception.DBException;
  *
  */
 public interface AppointmentDAO {
+	
     List<Appointment> getUserAppointments(SysUser su) throws DBException;
     
     void insertUserAppointment(SysUser su, Faculty f) throws DBException;

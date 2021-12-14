@@ -1,6 +1,5 @@
 package com.my.pet.spring.controller;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -11,11 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.pet.spring.domain.SysUser;
-import com.my.pet.spring.dto.SysUserDto;
 import com.my.pet.spring.exception.DBException;
 import com.my.pet.spring.service.SysUserService;
-
-import jdbc.DBManager;
 
 @Controller
 public class ProcessUserController {
@@ -39,9 +35,7 @@ public class ProcessUserController {
         SysUser sysUser = new SysUser();
         sysUser.setId(id);
         try {
-//        	DBManager.setBlockStat(sysUser, flag);
         	sysUserService.setBlockStat(id, flag);
-        	
         }  catch (DBException ex) {
         	logger.error("Can't (un)block user", ex);
         }

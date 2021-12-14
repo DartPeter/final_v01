@@ -10,7 +10,7 @@ public class FacultyDto {
     
 
     public FacultyDto() {
-    	// empty;
+    	// empty
 	}
 
 	public FacultyDto(Integer id, String name, int budgetPlaces, int totalPlaces) {

@@ -21,10 +21,6 @@ public interface SysUserDAO {
     
     void insertSysUser(SysUser sysUser, String ... details)  throws DBException;
     
-//    void updateSysUser(SysUser sysUser) throws DBException;
-    
-//    void removeSysUser(SysUser sysUser) throws DBException;
-    
     void setBlockStat(SysUser sysUser, boolean flag) throws DBException;
     
     void setCertificate(SysUser sysUser) throws DBException;

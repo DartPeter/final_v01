@@ -18,9 +18,6 @@ public interface FacultyDAO {
     
     Faculty insertFaculty(Faculty faculty) throws DBException;
     
-//    void updateFaculty(Faculty faculty) throws DBException;
-    
-//    void removeFaculty(Faculty faculty) throws DBException;
     void deleteFaculty(Integer id) throws DBException;
     
     List<Faculty> getAllFaculties() throws DBException;

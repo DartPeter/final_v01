@@ -5,10 +5,8 @@ import dao.FacultyDAO;
 import dao.MarkDAO;
 import dao.ReportDAO;
 import dao.SysUserDAO;
-import dao.postgres.PostgresMarkDAO;
 import dao.postgres.PostgresReportDAO;
 import dao.postgres.PostgresSysUserDAO;
-import dao.postgres.PostgressAppointmetDAO;
 
 public class PostgresDAOFactory extends DAOFactory {
 
@@ -25,12 +23,14 @@ public class PostgresDAOFactory extends DAOFactory {
 
 	@Override
 	public AppointmentDAO getAppointmentDAO() {
-		return PostgressAppointmetDAO.getInstance();
+//		return PostgressAppointmetDAO.getInstance();
+		return null;
 	}
 
 	@Override
 	public MarkDAO getMarkDAO() {
-		return PostgresMarkDAO.getInstance();
+//		return PostgresMarkDAO.getInstance();
+		return null;
 	}
 
 	@Override
