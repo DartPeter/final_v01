@@ -8,7 +8,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import com.my.pet.spring.domain.Appointment;
+import com.my.pet.spring.dto.AppointmentDto;
 
 /**
  * 
@@ -18,9 +18,9 @@ import com.my.pet.spring.domain.Appointment;
  */
 public class AppointmentTag extends SimpleTagSupport {
 
-    private Appointment appointment;
+    private AppointmentDto appointment;
 
-    public void setAppointment(Appointment appointment) {
+    public void setAppointment(AppointmentDto appointment) {
         this.appointment = appointment;
     }
 
@@ -44,10 +44,10 @@ public class AppointmentTag extends SimpleTagSupport {
 		String syes = rb.getString("manage.appointments.yes");
 		String sno = rb.getString("manage.appointments.no");
     	
-        getJspContext().getOut().println("<td>" + appointment.getfId() + "</td>" + "<td>" + appointment.getFacultyName()
-                + "</td>" + "<td>" + (appointment.getId() == 0 ? sno : syes) + "</td>"
-                + "<td><a href=\"updateAppointment?fid=" + appointment.getfId() + "&apply=" + (appointment.getId() == 0)
-                        + "&aid=" + appointment.getId() + "&page=" + page + "\">" + (appointment.getId() == 0 ? appoint : disappoint) + "</a></td>");
+        getJspContext().getOut().println("<td>" + appointment.getFacultyId() + "</td>" + "<td>" + appointment.getFacultyName()
+                + "</td>" + "<td>" + ((appointment.getId() == null || appointment.getId() == 0) ? sno : syes) + "</td>"
+                + "<td><a href=\"updateAppointment?fid=" + appointment.getFacultyId() + "&apply=" + (appointment.getId() == null || appointment.getId() == 0)
+                        + "&aid=" + appointment.getId() + "&page=" + page + "\">" + (appointment.getId() == null || appointment.getId() == 0 ? appoint : disappoint) + "</a></td>");
     }
 
 }

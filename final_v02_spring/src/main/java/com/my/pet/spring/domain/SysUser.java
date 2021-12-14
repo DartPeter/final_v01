@@ -1,6 +1,20 @@
 package com.my.pet.spring.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 /**
  * 
@@ -8,18 +22,33 @@ import java.io.Serializable;
  * System user entity
  *
  */
+@Entity
+@Table(name = "sys_user")
+@NamedQueries({@NamedQuery(name = "userByLogin",
+query = "from SysUser s where s.login=:login1")})
 public class SysUser implements Serializable {
 	
 	private static final long serialVersionUID = -2485244225753180884L;
 	
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@Column(name = "full_name")
     private String fullName;
+	@Column(name = "utype")
     private String userType;
     private String login;
     private String pass;
     private String email;
-    private String certificate;
+    @Column(name = "is_blocked")
     private boolean isBlocked;
+//  private String certificate;
+    
+    @OneToMany(mappedBy = "sysUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Appointment> appointments = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "sysUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Mark> marks = new ArrayList<>();
 
     public SysUser() {
         // empty
@@ -43,11 +72,11 @@ public class SysUser implements Serializable {
         this.isBlocked = isBlocked;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -92,11 +121,28 @@ public class SysUser implements Serializable {
     }
 
     public String getCertificate() {
-		return certificate;
+//		return certificate;
+    	return null;
 	}
 
 	public void setCertificate(String certificate) {
-		this.certificate = certificate;
+//		this.certificate = certificate;
+	}
+
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+
+	public List<Mark> getMarks() {
+		return marks;
+	}
+
+	public void setMarks(List<Mark> marks) {
+		this.marks = marks;
 	}
 
 	public boolean isBlocked() {

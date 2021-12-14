@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -18,10 +19,17 @@ import org.springframework.web.servlet.view.JstlView;
 
 import com.my.pet.spring.config.WebConfig;
 import com.my.pet.spring.test.config.TestBeanConfig;
+import com.my.pet.spring.test.config.TestHibernateConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes =TestBeanConfig.class)
+@ContextConfiguration(classes =
+//TestBeanConfig.class
+{
+TestBeanConfig.class
+, TestHibernateConfiguration.class}
+)
+@WebAppConfiguration
 class MyControllerTestIT {
 	
 	@Autowired

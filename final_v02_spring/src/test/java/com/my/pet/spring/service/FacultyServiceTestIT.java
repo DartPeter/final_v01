@@ -2,16 +2,23 @@ package com.my.pet.spring.service;
 
 import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.Test;
-import com.my.pet.spring.exception.DBException;
-import dao.postgres.PostgresFacultyDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.my.pet.spring.exception.DBException;
+import com.my.pet.spring.test.config.TestHibernateConfiguration;
+
+@SpringJUnitConfig(TestHibernateConfiguration.class)
+@WebAppConfiguration
 class FacultyServiceTestIT {
 	
-	private static PostgresFacultyDAO pfdao = PostgresFacultyDAO.getInstance();
+	@Autowired
+	FacultyService facultyService;
 	
 	@Test
 	void testGetAllFaculties() throws DBException {
-		assertTrue(pfdao.getAllFaculties().size() >= 0);
+		assertTrue(facultyService.getAllFaculties().size() >= 0);
 	}
 	
 

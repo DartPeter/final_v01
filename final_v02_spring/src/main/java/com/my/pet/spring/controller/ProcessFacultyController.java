@@ -4,15 +4,18 @@ import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.my.pet.spring.domain.Faculty;
+import com.my.pet.spring.dto.FacultyDto;
 import com.my.pet.spring.exception.DBException;
+import com.my.pet.spring.service.FacultyService;
+
 import jdbc.DBManager;
 
 @Controller
@@ -20,9 +23,14 @@ public class ProcessFacultyController {
 	
 	private static final String PRG_KEY = "facultyOperOK";
 	
+	private Logger logger = LoggerFactory.getLogger(ProcessFacultyController.class);
+	
+	@Autowired
+	FacultyService facultyService;
+	
 	@RequestMapping(value = "/processFaculty")
-	public ModelAndView processFaculty(@ModelAttribute ("faculty") Faculty faculty, HttpServletRequest request) {
-		Logger.getLogger(ProcessFacultyController.class.getName()).log(Level.INFO, "Trying to process faculty");
+	public ModelAndView processFaculty(@ModelAttribute ("faculty") FacultyDto faculty, HttpServletRequest request) {
+		logger.info("Trying to process faculty");
         try {
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
@@ -58,13 +66,13 @@ public class ProcessFacultyController {
             budgetPlaces = Integer.parseInt(request.getParameter("budgetPlaces"));
         } catch (NumberFormatException nfe) {
             errors = "messages.aef.budget.number";
-            Logger.getLogger(ProcessFacultyController.class.getName()).log(Level.ERROR, "Budget Places must be number!", nfe);
+            logger.error("Budget Places must be number!", nfe);
         }
         try {
             totalPlaces = Integer.parseInt(request.getParameter("totalPlaces"));
         } catch (NumberFormatException nfe) {
             errors = "messages.aef.total.number";
-            Logger.getLogger(ProcessFacultyController.class.getName()).log(Level.ERROR, "Total Places must be number!", nfe);
+            logger.error("Total Places must be number!", nfe);
         }
         if (totalPlaces < budgetPlaces) {
         	errors = "messages.total.must.be.greater";
@@ -72,39 +80,45 @@ public class ProcessFacultyController {
         //Faculty faculty = null;
         String mode = request.getParameter("mode");
         if (errors.isEmpty()) {
-            faculty = new Faculty(id, name, budgetPlaces, totalPlaces);
+            faculty = new FacultyDto(id, name, budgetPlaces, totalPlaces);
             switch (mode) {
             case "new":
             	try {
-            		DBManager.insertFaculty(faculty);
-            		Logger.getLogger(ProcessFacultyController.class.getName()).log(Level.INFO, "Faculty was successfully inserted.");
-            								throw new DBException("", null);
+//            		DBManager.insertFaculty(faculty);
+            		faculty.setId(null);
+            		faculty = facultyService.insertFaculty(faculty);
+            		logger.info("Faculty was successfully inserted.");
+//            		throw new DBException("", null);
             	} catch (DBException ex) {
             		errors = "messages.aef.cant.insert";
-            		Logger.getLogger(ProcessFacultyController.class.getName()).log(Level.ERROR, ex.getMessage());
+            		logger.error(ex.getMessage());
             	}
-                if (faculty.getId() == -1) {
+                if (faculty.getId() == null || faculty.getId() == -1) {
                     errors = "messages.aef.wrong";
                 }
                 break;
             case "edit":
             	try {
-            		DBManager.updateFaculty(faculty);
-            		Logger.getLogger(ProcessFacultyController.class.getName()).log(Level.INFO, "Faculty was successfully updated.");
-											throw new DBException("", null);
+            		
+//            		DBManager.updateFaculty(faculty);
+            		faculty = facultyService.updateFaculty(faculty);
+            		
+            		logger.info("Faculty was successfully updated.");
+//            		throw new DBException("", null);
             	} catch (DBException ex) {
             		errors = "messages.aef.cant.update";
-            		Logger.getLogger(ProcessFacultyController.class.getName()).log(Level.ERROR, ex.getMessage());
+            		logger.error(ex.getMessage());
             	}
                 break;
             case "del":
             	try {
-            		DBManager.removeFaculty(faculty);
-            		Logger.getLogger(ProcessFacultyController.class.getName()).log(Level.INFO, "Faculty was successfully removed.");
-											throw new DBException("", null);
+//            		DBManager.removeFaculty(faculty);
+            		facultyService.deleteFaculty(faculty.getId());
+            		logger.info("Faculty was successfully removed.");
+            		throw new DBException("", null);
             	} catch (DBException ex) {
             		errors = "messages.aef.cant.remove";
-            		Logger.getLogger(ProcessFacultyController.class.getName()).log(Level.ERROR, errors, ex);
+            		logger.error(errors, ex);
             	}
                 break;
             default:

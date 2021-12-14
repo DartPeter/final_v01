@@ -48,8 +48,8 @@ public class PostgressAppointmetDAO extends AbstractDAO implements AppointmentDA
             ps.setInt(1, su.getId());
             try (ResultSet rs = ps.executeQuery();) {
                 while (rs.next()) {
-                    Appointment a = new Appointment(rs.getInt("ua_id"), su.getId(), rs.getInt("f_id"), rs.getString("name"));
-                    appointments.add(a);
+//                    Appointment a = new Appointment(rs.getInt("ua_id"), su.getId(), rs.getInt("f_id"), rs.getString("name"));
+//                    appointments.add(a);
                 }
             }
         } catch (SQLException ex) {

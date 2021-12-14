@@ -94,34 +94,34 @@ public class PostgresSysUserDAO extends AbstractDAO implements SysUserDAO {
 		}
 	}
 
-    @Override
-    public void updateSysUser(SysUser sysUser) throws DBException {
-        try (Connection con  = getConnection();
-             PreparedStatement ps = con.prepareStatement(SQL_UPDATE_SYS_USER)) {
-            ps.setString(1, sysUser.getFullName());
-            ps.setString(2, sysUser.getUserType());
-            ps.setString(3, sysUser.getLogin());
-            ps.setString(4, sysUser.getPass());
-            ps.setString(5, sysUser.getEmail());
-            ps.setInt(6, sysUser.getId());
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(PostgresSysUserDAO.class.getName()).log(Level.ERROR, null, ex);
-            throw new DBException("Cannot update user!", ex);
-        }
-    }
+//    @Override
+//    public void updateSysUser(SysUser sysUser) throws DBException {
+//        try (Connection con  = getConnection();
+//             PreparedStatement ps = con.prepareStatement(SQL_UPDATE_SYS_USER)) {
+//            ps.setString(1, sysUser.getFullName());
+//            ps.setString(2, sysUser.getUserType());
+//            ps.setString(3, sysUser.getLogin());
+//            ps.setString(4, sysUser.getPass());
+//            ps.setString(5, sysUser.getEmail());
+//            ps.setInt(6, sysUser.getId());
+//            ps.executeUpdate();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(PostgresSysUserDAO.class.getName()).log(Level.ERROR, null, ex);
+//            throw new DBException("Cannot update user!", ex);
+//        }
+//    }
 
-    @Override
-    public void removeSysUser(SysUser sysUser) throws DBException {
-        try (Connection con = getConnection();
-             PreparedStatement ps = con.prepareStatement(SQL_DELETE_SYS_USER);) {
-            ps.setInt(1, sysUser.getId());
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(PostgresSysUserDAO.class.getName()).log(Level.ERROR, null, ex);
-            throw new DBException("Cannot remove user!", ex);
-        }
-    }
+//    @Override
+//    public void removeSysUser(SysUser sysUser) throws DBException {
+//        try (Connection con = getConnection();
+//             PreparedStatement ps = con.prepareStatement(SQL_DELETE_SYS_USER);) {
+//            ps.setInt(1, sysUser.getId());
+//            ps.executeUpdate();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(PostgresSysUserDAO.class.getName()).log(Level.ERROR, null, ex);
+//            throw new DBException("Cannot remove user!", ex);
+//        }
+//    }
 
     @Override
     public List<SysUser> getAllSysUsers() throws DBException {
@@ -138,7 +138,7 @@ public class PostgresSysUserDAO extends AbstractDAO implements SysUserDAO {
                 sysUsers.add(sysUser);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PostgresFacultyDAO.class.getName()).log(Level.ERROR, null, ex);
+            Logger.getLogger(PostgresSysUserDAO.class.getName()).log(Level.ERROR, null, ex);
             throw new DBException("Cannot obtaion all users!", ex);
         }
         return sysUsers;

@@ -1,25 +1,39 @@
 package com.my.pet.spring.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.my.pet.spring.domain.Appointment;
-import com.my.pet.spring.domain.Faculty;
 import com.my.pet.spring.domain.Mark;
 import com.my.pet.spring.domain.SysUser;
+import com.my.pet.spring.dto.AppointmentDto;
+import com.my.pet.spring.dto.FacultyDto;
+import com.my.pet.spring.dto.MarkDto;
+import com.my.pet.spring.dto.SysUserDto;
 import com.my.pet.spring.exception.DBException;
+import com.my.pet.spring.service.FacultyService;
+import com.my.pet.spring.service.SysUserService;
 
 import jdbc.DBManager;
 
 @Controller
 public class MyController {
+	
+	private Logger logger = LoggerFactory.getLogger(MyController.class);
+
+	@Autowired
+	FacultyService facultyService;
+	@Autowired
+	SysUserService sysUserService;
 	
 	@GetMapping(value = "/qwe")
 	public ModelAndView qwe() {
@@ -51,9 +65,10 @@ public class MyController {
 	    } catch(NumberFormatException nfe) {
 	    	// do nothing
 	    }
-	    List<Faculty> list = new ArrayList<>();
+	    List<FacultyDto> list = new ArrayList<>();
 		try {
-			list = DBManager.getAllFaculties();
+//			list = DBManager.getAllFaculties();
+			list = facultyService.getAllFaculties();
 		} catch (DBException e) {
 			// do nothing
 		}
@@ -75,7 +90,7 @@ public class MyController {
 		   	default :
 		   		break;	
 	    }
-	    List<Faculty> list2 = list.subList((currentPage - 1) * PAGE_SIZE, Math.min(currentPage * PAGE_SIZE, list.size()));
+	    List<FacultyDto> list2 = list.subList((currentPage - 1) * PAGE_SIZE, Math.min(currentPage * PAGE_SIZE, list.size()));
 	    request.setAttribute("list", list2);
 	    int size = list.size();
 	    int pagesTotal = size / PAGE_SIZE + (size % PAGE_SIZE == 0 ? 0 : 1);
@@ -99,13 +114,14 @@ public class MyController {
 	    	// do nothing
 	    }
 	    request.setAttribute("page", currentPage);
-	    List<SysUser> list = new ArrayList<>();
+	    List<SysUserDto> list = new ArrayList<>();
 		try {
-			list = DBManager.getAllSysUsers();
+//			list = DBManager.getAllSysUsers();
+			list = sysUserService.getAllSysUsers();
 		} catch (DBException e) {
 			// do nothing
 		}
-	    List<SysUser> list2 = list.subList((currentPage - 1) * PAGE_SIZE, Math.min(currentPage * PAGE_SIZE, list.size()));
+	    List<SysUserDto> list2 = list.subList((currentPage - 1) * PAGE_SIZE, Math.min(currentPage * PAGE_SIZE, list.size()));
 	    request.setAttribute("list", list2);
 	    int size = list.size();
 	    int pagesTotal = size / PAGE_SIZE + (size % PAGE_SIZE == 0 ? 0 : 1);
@@ -133,14 +149,25 @@ public class MyController {
 	
 	@GetMapping(value = "/view_marks")
 	public ModelAndView viewMarks(HttpServletRequest request) {
-		SysUser su = (SysUser)request.getSession().getAttribute("user");
-	    List<Mark> list = new ArrayList<>();
+		SysUserDto su = (SysUserDto)request.getSession().getAttribute("user");
+	    List<MarkDto> list = new ArrayList<>();
 		try {
 			if(su != null) {
-				list = DBManager.getUserMarks(su);
+//				list = DBManager.getUserMarks(su);
+				list = sysUserService.getUserMarksStatus(su);
+				//TODO workaround for new user first time
+				if(su.getMarks().isEmpty()) {
+					su.setMarks(list);
+					sysUserService.update(su);
+					su = sysUserService.getSysUserByLogin(su.getLogin());
+					request.getSession().setAttribute("user", su);
+					list = sysUserService.getUserMarksStatus(su);
+				} else {
+					list = sysUserService.getUserMarksStatus(su);
+				}
 			}
 		} catch (DBException e) {
-			LoggerFactory.getLogger(MyController.class).error("can't retrive marks");
+			logger.error("can't retrive marks");
 		}
 	    request.setAttribute("list", list);
 		return new ModelAndView("view_marks");
@@ -158,16 +185,17 @@ public class MyController {
 	    }
 	    request.setAttribute("page", currentPage);
 		request.getSession().setAttribute("lapp", Integer.toString(currentPage));
-	    List<Appointment> list = new ArrayList<>();
+	    List<AppointmentDto> list = new ArrayList<>();
 		try {
-			SysUser sysUser = (SysUser)(request.getSession().getAttribute("user"));
+			SysUserDto sysUser = (SysUserDto)(request.getSession().getAttribute("user"));
 			if (sysUser != null) {
-				list = DBManager.getUserAppointments(sysUser);
+//				list = DBManager.getUserAppointments(sysUser);
+				list = sysUserService.getUserAppointmentStatus(sysUser);
 			}
 		} catch (DBException e) {
 			// do nothing
 		}
-	    List<Appointment> list2 = list.subList((currentPage - 1) * PAGE_SIZE, Math.min(currentPage * PAGE_SIZE, list.size()));
+	    List<AppointmentDto> list2 = list.subList((currentPage - 1) * PAGE_SIZE, Math.min(currentPage * PAGE_SIZE, list.size()));
 	    request.setAttribute("list", list2);
 	    int size = list.size();
 	    int pagesTotal = size / PAGE_SIZE + (size % PAGE_SIZE == 0 ? 0 : 1);
@@ -176,6 +204,55 @@ public class MyController {
 	    request.setAttribute("first", first);
 	    request.setAttribute("last", last);
 		return new ModelAndView("manage_appointments");
+	}
+	
+	@GetMapping(value = "/updateAppointment")
+	public ModelAndView updateAppointment(HttpServletRequest request) {
+		logger.info("Trying to update appointment");
+        boolean isApply = Boolean.parseBoolean(request.getParameter("apply"));
+        SysUserDto su = (SysUserDto) (request.getSession().getAttribute("user"));
+        if (isApply) {
+            int fid = Integer.parseInt(request.getParameter("fid"));
+            FacultyDto f = new FacultyDto();
+            f.setId(fid);
+//            try {
+//            	DBManager.insertUserAppointment(su, f);
+            	AppointmentDto a = new AppointmentDto();
+            	a.setFacultyId(f.getId());
+            	a.setFacultyName(f.getName());
+            	su.getAppointments().add(a);
+//            } catch (DBException ex) {
+//            	logger.error("Can't update appointment", ex);
+//            }
+        } else {
+            int aid = Integer.parseInt(request.getParameter("aid"));
+//            AppointmentDto a = new AppointmentDto();
+//            a.setId(aid);
+//            try {
+//            	DBManager.removeAppointment(a);
+            	Iterator<AppointmentDto> iterator = su.getAppointments().iterator();
+            	while(iterator.hasNext()) {
+            		AppointmentDto dto = iterator.next();
+            		if(dto.getId().equals(aid)) {
+            			iterator.remove();
+            		}
+            	}
+//            } catch (DBException ex) {
+//            	logger.error("Can't update appointment", ex);
+//            }
+        }
+    	try {
+			su = sysUserService.update(su);
+			//I don't know this not enough for appointments update so workaround
+			su = sysUserService.getSysUserByLogin(su.getLogin());
+			
+		} catch (DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	request.getSession().setAttribute("user", su);
+        
+        return new ModelAndView("manage_appointments");
 	}
 	
 }

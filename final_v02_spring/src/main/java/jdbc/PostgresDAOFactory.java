@@ -5,7 +5,6 @@ import dao.FacultyDAO;
 import dao.MarkDAO;
 import dao.ReportDAO;
 import dao.SysUserDAO;
-import dao.postgres.PostgresFacultyDAO;
 import dao.postgres.PostgresMarkDAO;
 import dao.postgres.PostgresReportDAO;
 import dao.postgres.PostgresSysUserDAO;
@@ -20,7 +19,8 @@ public class PostgresDAOFactory extends DAOFactory {
 
 	@Override
 	public FacultyDAO getFacultyDAO() {
-		return PostgresFacultyDAO.getInstance();
+//		return PostgresFacultyDAO.getInstance();
+		return null;
 	}
 
 	@Override

@@ -1,8 +1,9 @@
 package dao;
 
+import java.util.List;
+
 import com.my.pet.spring.domain.SysUser;
 import com.my.pet.spring.exception.DBException;
-import java.util.List;
 
 /**
  * 
@@ -12,13 +13,17 @@ import java.util.List;
  */
 public interface SysUserDAO {
 
-    SysUser getSysUserByLogin(String name)  throws DBException;
+    SysUser getSysUserByLogin(String name) throws DBException;
+    
+    default SysUser getSysUserById(Integer id) throws DBException {
+    	return null;
+    }
     
     void insertSysUser(SysUser sysUser, String ... details)  throws DBException;
     
-    void updateSysUser(SysUser sysUser) throws DBException;
+//    void updateSysUser(SysUser sysUser) throws DBException;
     
-    void removeSysUser(SysUser sysUser) throws DBException;
+//    void removeSysUser(SysUser sysUser) throws DBException;
     
     void setBlockStat(SysUser sysUser, boolean flag) throws DBException;
     

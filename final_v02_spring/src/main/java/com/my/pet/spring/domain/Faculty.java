@@ -1,16 +1,27 @@
 package com.my.pet.spring.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * 
  * @author peter
  * Faculty entity
  *
  */
+@Entity
 public class Faculty {
 
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String name;
+    @Column(name = "budget_places")
     private int budgetPlaces;
+    @Column(name = "total_places")
     private int totalPlaces;
 
     public Faculty() {
@@ -21,18 +32,18 @@ public class Faculty {
         this.name = name;
     }
 
-    public Faculty(int id, String name, int budgetPlaces, int totalPlaces) {
+    public Faculty(Integer id, String name, int budgetPlaces, int totalPlaces) {
         this.id = id;
         this.name = name;
         this.budgetPlaces = budgetPlaces;
         this.totalPlaces = totalPlaces;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

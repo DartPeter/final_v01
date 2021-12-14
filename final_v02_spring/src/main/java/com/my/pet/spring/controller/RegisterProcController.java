@@ -1,101 +1,81 @@
 package com.my.pet.spring.controller;
 
-import java.util.Map;
-
-import javax.servlet.RequestDispatcher;
+import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.pet.spring.domain.SysUser;
+import com.my.pet.spring.dto.SysUserDto;
 import com.my.pet.spring.exception.DBException;
+import com.my.pet.spring.service.SysUserService;
+
+import jdbc.DBManager;
 
 @Controller
 public class RegisterProcController {
+	
+	@Autowired
+	private SysUserService sysUserService;
+	
+//	private static final String PRG_KEY = "createUserOK";
+	
+	private Logger logger = LoggerFactory.getLogger(RegisterProcController.class);
 
 	@RequestMapping("/registerProc")
-	public ModelAndView doPost(
-			@RequestParam String key_reg,
-			// ????? session
-			@RequestParam String user_type,
-			@RequestParam String full_name,
-			@RequestParam String login,
-			@RequestParam String password,
-			@RequestParam String email,
-			@RequestParam String city,
-			@RequestParam String region,
-			@RequestParam String inst_name,
-			HttpServletResponse response) {//HttpServletRequest request
-		Logger.getLogger(RegisterProcController.class.getName()).log(Level.INFO, "Trying to register user");
-//        request.setCharacterEncoding("UTF-8");
+	public ModelAndView registerUser (HttpServletRequest request) {
+		logger.info("Trying to register user");
+        try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			logger.error(e.getMessage());
+		}
+        final String destPage = "register";
         
-        final String destPage = "register.jsp";
-        String requestPRGValue = key_reg;
-        //request.getParameter("key_reg");
+//        String requestPRGValue = request.getParameter("key_reg");
 //        Object sessionPRGValue = request.getSession().getAttribute(PRG_KEY);
 //        if (sessionPRGValue != null && sessionPRGValue.equals(requestPRGValue)) {
-//        	Logger.getLogger(RegisterProcController.class.getName()).log(Level.INFO, "PRG Check triggered");
+//        	logger.info("PRG Check triggered");
 //        	RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
 //            dispatcher.forward(request, response);
 //            return;
 //        }
 //        request.getSession().setAttribute(PRG_KEY, requestPRGValue);
         
-        SysUser su = new SysUser(
-        		/*request.getParameter("full_name"), 
+        SysUserDto su = new SysUserDto(request.getParameter("full_name"), 
                 request.getParameter("user_type"), 
                 request.getParameter("login"), 
                 request.getParameter("password"), 
-                request.getParameter("email")
-                */
-        		full_name, user_type, login, password, email
-                );
-                
+                request.getParameter("email"));
         
         String[] details = null;
-        String city0 = city;
-        //request.getParameter("city");
-        if (city0 != null) {
+        String city = request.getParameter("city");
+        if (city != null) {
             details = new String[] {
-                    city0,
-                    //request.getParameter("region"),
-                    //request.getParameter("inst_name")
-                    region,
-                    inst_name
+                    city,
+                    request.getParameter("region"),
+                    request.getParameter("inst_name")
             };
         }
-//        try {
+        try {
 //        	DBManager.insertSysUser(su, details);
-//        } catch (DBException ex) {
-//        	Logger.getLogger(RegisterProcController.class.getName()).log(Level.ERROR, ex.getMessage());
-//        }
+        	su = sysUserService.insertSysUser(su, details);
+        } catch (DBException ex) {
+        	logger.error(ex.getMessage());
+        }
         String message;
-        if (su.getId() > 0) {
+        if (su.getId() != null && su.getId() > 0) {
             message = "messages.register.ok";
-            Logger.getLogger(RegisterProcController.class.getName()).log(Level.ERROR, "User was registered succesfully");
+            logger.error("User was registered succesfully");
         } else {
             message = "messages.register.not.ok";
         }
-        //request.setAttribute("message", message);
-         
-//        RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-//        dispatcher.forward(request, response);
-        return new ModelAndView("index");
+        request.setAttribute("message", message);
+        
+        return new ModelAndView(destPage);
 	}
-	
-//	@PostMapping(value = "registerProc")
-//	public ModelAndView register(Map<String, Object> model, BindingResult result) {
-//		if (result.hasErrors()) {
-//	        return new ModelAndView("error");
-//	    }
-//		return new ModelAndView("index");
-//	}
 }

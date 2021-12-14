@@ -8,12 +8,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.my.pet.spring.domain.SysUser;
+import com.my.pet.spring.dto.SysUserDto;
 
 public class SysUserDetails implements UserDetails {
 	
-	private SysUser sysUser;
+	private SysUserDto sysUser;
 	
-	public SysUserDetails(SysUser sysUser) {
+	public SysUserDetails(SysUserDto sysUser) {
 		this.sysUser = sysUser;
 	}
 
