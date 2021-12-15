@@ -2,7 +2,6 @@ package com.hiber.entity;
 
 import java.util.Objects;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
