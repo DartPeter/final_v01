@@ -1,7 +1,7 @@
 <%@page import="jdbc.DBManager"%>
-<%@page import="entity.Appointment"%>
-<%@page import="entity.Faculty"%>
-<%@page import="entity.SysUser"%>
+<%@page import="com.entity.Appointment"%>
+<%@page import="com.entity.Faculty"%>
+<%@page import="com.entity.SysUser"%>
 <%@page import="java.util.List"%>
 <%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"

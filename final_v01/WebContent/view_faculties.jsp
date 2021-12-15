@@ -1,5 +1,5 @@
 <%@page import="jdbc.DBManager"%>
-<%@page import="entity.Faculty"%>
+<%@page import="com.entity.Faculty"%>
 <%@page import="java.util.List"%>
 <%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"

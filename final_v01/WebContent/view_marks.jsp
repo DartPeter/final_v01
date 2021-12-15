@@ -1,6 +1,6 @@
 <%@page import="jdbc.DBManager"%>
-<%@page import="entity.SysUser"%>
-<%@page import="entity.Mark"%>
+<%@page import="com.entity.SysUser"%>
+<%@page import="com.entity.Mark"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
