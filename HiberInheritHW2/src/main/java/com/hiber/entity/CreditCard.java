@@ -6,7 +6,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("CREDIT_CARD")
 public class CreditCard extends BillingDetails {
 	
 	String cardNumber;
