@@ -18,9 +18,9 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     return new Class[]{WebConfig.class,
     		HelloRouter.class,
     		WebSecurityConfig.class
+    		,HibernateConfiguration.class
     		
-    		,HibernateConfiguration.class 
-    		
+    		,EhCacheConfiguration.class    		
     		};
   }
 
