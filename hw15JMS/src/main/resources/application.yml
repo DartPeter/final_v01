@@ -1,0 +1,29 @@
+spring:
+
+  # Embedded ActiveMQ Configuration Example
+  activemq:
+    broker-url: vm://embedded?broker.persistent=false,useShutdownHook=false
+    in-memory: true
+    non-blocking-redelivery: true
+    packages:
+      trust-all: false
+      trusted: base
+    pool:
+      block-if-full: true
+      enabled: false
+      max-connections: 1
+      use-anonymous-producers: true
+
+  # Spring JMS Settings
+  jms:
+    listener:
+      acknowledge-mode: auto
+      auto-startup: true
+      concurrency: 1
+      max-concurrency: 10
+    pub-sub-domain: true # false for point-to-point
+    template:
+      default-destination:
+      delivery-mode: non_persistent
+      priority: 100
+      qos-enabled: true
