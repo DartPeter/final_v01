@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +14,6 @@ import com.my.pet.spring.exception.DBException;
 import com.my.pet.spring.test.config.TestHibernateConfiguration;
 
 @SpringJUnitConfig(TestHibernateConfiguration.class)
-@WebAppConfiguration
 @Transactional // this clears db between tests
 class FacultyUpdatesTest {
 

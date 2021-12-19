@@ -17,7 +17,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan(basePackages = "com.my.pet.spring")
+//@ComponentScan(basePackages = "com.my.pet.spring")
+@ComponentScan(basePackages = {"com.my.pet.spring.service", "com.my.pet.spring.repository", "com.my.pet.spring.assembler"})
 @EnableTransactionManagement
 public class TestHibernateConfiguration {
 

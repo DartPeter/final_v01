@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +28,6 @@ import dao.FacultyDAO;
 import dao.SubjectDAO;
 
 @SpringJUnitConfig(TestHibernateConfiguration.class)
-@WebAppConfiguration
 @Transactional
 public class SysUserUpdatesTest {
 	

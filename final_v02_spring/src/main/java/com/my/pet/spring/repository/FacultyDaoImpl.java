@@ -29,7 +29,7 @@ public class FacultyDaoImpl implements FacultyDAO {
 	public Faculty getFacultyById(Integer facultyId) throws DBException {
 		Session session = sessionFactory.getCurrentSession();
 		Faculty faculty = session.get(Faculty.class, facultyId);
-		return Objects.requireNonNull(faculty, "Tourist not found by id: " + facultyId);
+		return Objects.requireNonNull(faculty, "Faculty not found by id: " + facultyId);
 	}
 
 	@Override
