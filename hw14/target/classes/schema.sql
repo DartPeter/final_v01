@@ -1,0 +1,4 @@
+CREATE TABLE something  (
+    id INT IDENTITY NOT NULL PRIMARY KEY,
+    name VARCHAR(20)
+);
