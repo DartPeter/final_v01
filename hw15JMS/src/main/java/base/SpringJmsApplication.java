@@ -15,7 +15,7 @@ public class SpringJmsApplication implements ApplicationRunner {
 
     private static Logger log = LoggerFactory.getLogger(SpringJmsApplication.class);
     private static Random random = new Random();
-    private final static int N = 10;
+    private static final int N = 10;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringJmsApplication.class, args);

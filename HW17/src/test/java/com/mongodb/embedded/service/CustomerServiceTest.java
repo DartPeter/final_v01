@@ -22,7 +22,7 @@ class CustomerServiceTest {
     CustomerService customerService;
 
     @Test
-    public void testGet() {
+    void testGet() {
         Long id = 1L;
         customerService.createCustomer(Customer.builder().id(id).firstName("fn1").lastName("ln1").build());
         Customer customer = customerService.getCustomerById(id).get();
@@ -30,7 +30,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    public void testUpdate() {
+    void testUpdate() {
         Long id = 1L;
         customerService.createCustomer(Customer.builder().id(id).firstName("fn1").lastName("ln1").build());
         Customer customer = customerService.getCustomerById(id).get();
@@ -52,7 +52,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    public void testGetWithAddresses() {
+    void testGetWithAddresses() {
         customerService.createCustomer(Customer.builder().id(1L).firstName("fn1").lastName("ln1").
                 addresses(
                         List.of(
@@ -63,7 +63,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    public void testGetByAddress() {
+    void testGetByAddress() {
         Address address1 = Address.builder().line1("l11").line2("l21").countryCode("cc1").build();
         Address address2 = Address.builder().line1("l12").line2("l22").countryCode("cc2").build();
         Address address3 = Address.builder().line1("l13").line2("l23").countryCode("cc3").build();
@@ -77,7 +77,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    public void testGetByCardNumber() {
+    void testGetByCardNumber() {
         Account account1 = Account.builder().nameOnAccount("na1").cardNumber("cn1")
                 .expirationDate(LocalDate.of(2000, 2, 2)).build();
         Account account2 = Account.builder().nameOnAccount("na1").cardNumber("cn2")
@@ -92,12 +92,12 @@ class CustomerServiceTest {
     }
 
     @Test
-    public void testGetUsersWithExpiredCards() {
+    void testGetUsersWithExpiredCards() {
         Account account1 = Account.builder().nameOnAccount("na1").cardNumber("cn1")
                 .expirationDate(LocalDate.of(2000, 2, 2)).build();
-        Account account2 = Account.builder().nameOnAccount("na1").cardNumber("cn2")
+        Account account2 = Account.builder().nameOnAccount("na2").cardNumber("cn2")
                 .expirationDate(LocalDate.of(2001, 2, 2)).build();
-        Account account3 = Account.builder().nameOnAccount("na1").cardNumber("cn2")
+        Account account3 = Account.builder().nameOnAccount("na3").cardNumber("cn3")
                 .expirationDate(LocalDate.of(2002, 2, 2)).build();
         Customer customer1 = Customer.builder().id(1L).accounts(List.of(account1, account2)).build();
         Customer customer2 = Customer.builder().id(2L).accounts(List.of(account2, account3)).build();

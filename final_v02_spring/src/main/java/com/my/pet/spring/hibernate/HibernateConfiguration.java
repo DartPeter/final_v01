@@ -23,9 +23,14 @@ public class HibernateConfiguration {
 	@Bean
 	public DataSource postgresDataSource() throws SQLException {
 		PGSimpleDataSource dataSource = new PGSimpleDataSource();
+		// local
 		dataSource.setUrl("jdbc:postgresql://localhost/test");
 		dataSource.setUser("postgres");
 		dataSource.setPassword("p19");
+		//aws
+//		dataSource.setUrl("jdbc:postgresql://database-2.cuagodizgt5q.us-east-2.rds.amazonaws.com/test");
+//		dataSource.setUser("postgres");
+//		dataSource.setPassword("pass1234A");
 		return dataSource;
 	}
 	

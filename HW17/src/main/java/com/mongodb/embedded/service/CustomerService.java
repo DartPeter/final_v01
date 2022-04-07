@@ -1,6 +1,5 @@
 package com.mongodb.embedded.service;
 
-import com.mongodb.embedded.entity.Account;
 import com.mongodb.embedded.entity.Address;
 import com.mongodb.embedded.entity.Customer;
 import com.mongodb.embedded.repository.CustomerRepository;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,45 +33,15 @@ public class CustomerService {
     }
 
     public List<Customer> getCustomerByAddress(Address address) {
-        List<Customer> customers = customerRepository.findAll();
-        List<Customer> result = new ArrayList<>();
-        for (Customer customer : customers) {
-            for (Address address1 : customer.getAddresses()) {
-                if(address1.equals(address)) {
-                    result.add(customer);
-                    break;
-                }
-            }
-        }
-        return result;
+    	return customerRepository.findByAddressesContaining(address);
     }
 
     public List<Customer> getCustomerByCardNumber(String cardNumber) {
-        List<Customer> customers = customerRepository.findAll();
-        List<Customer> result = new ArrayList<>();
-        for (Customer customer : customers) {
-            for (Account account: customer.getAccounts()) {
-                if(account.getCardNumber().equals(cardNumber)) {
-                    result.add(customer);
-                    break;
-                }
-            }
-        }
-        return result;
+        return customerRepository.findByAccountsCardNumber(cardNumber);
     }
 
     public List<Customer> getCustomerWithExpiredCard(LocalDate now) {
-        List<Customer> customers = customerRepository.findAll();
-        List<Customer> result = new ArrayList<>();
-        for (Customer customer : customers) {
-            for (Account account: customer.getAccounts()) {
-                if(account.getExpirationDate().isBefore(now)) {
-                    result.add(customer);
-                    break;
-                }
-            }
-        }
-        return result;
+        return customerRepository.findByAccountsExpirationDateBefore(now);
     }
 
 }

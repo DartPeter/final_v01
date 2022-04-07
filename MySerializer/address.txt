@@ -1,0 +1,17 @@
+my.home.com.Address
+java.lang.String
+city
+java.lang.String
+street
+java.lang.Integer
+12
+java.util.HashMap
+2
+java.lang.Long
+1
+java.lang.Integer
+2
+java.lang.Long
+3
+java.lang.Integer
+4

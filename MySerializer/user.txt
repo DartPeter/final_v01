@@ -1,0 +1,10 @@
+my.home.com.User
+my.home.com.Address
+java.lang.String
+city4
+java.lang.Integer
+14
+java.util.Date
+java.lang.Long
+60260619600000
+sun.util.calendar.Gregorian.Date

@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: my.home.com.AppTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.085 s <<< FAILURE! - in my.home.com.AppTest
+testUser(my.home.com.AppTest)  Time elapsed: 0.025 s  <<< ERROR!
+java.lang.reflect.InaccessibleObjectException: Unable to make field private static final sun.util.calendar.BaseCalendar java.util.Date.gcal accessible: module java.base does not "opens java.util" to unnamed module @150c158
+	at my.home.com.AppTest.testUser(AppTest.java:56)
+
